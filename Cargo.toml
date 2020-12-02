@@ -3,3 +3,6 @@ authors = ["Mike Pedersen <mike@mikepedersen.dk>"]
 edition = "2018"
 name = "advent"
 version = "0.1.0"
+
+[dependencies]
+scan_fmt = "0.2.5"
