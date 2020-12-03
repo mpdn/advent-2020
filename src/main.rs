@@ -56,7 +56,47 @@ fn two() {
     println!("{}", n_valid_b);
 }
 
+fn three() {
+    let trees: Vec<Vec<_>> = std::include_str!("3.txt")
+        .lines()
+        .map(|s| {
+            s.chars()
+                .map(|ch| match ch {
+                    '#' => true,
+                    '.' => false,
+                    ch => panic!("Unexpected char: {}", ch),
+                })
+                .collect()
+        })
+        .collect();
+
+    let hits = |slope_x: usize, slope_y: usize| {
+        let mut x = 0;
+        let mut y = 0;
+        let mut trees_hit: u64 = 0;
+
+        while y < trees.len() {
+            let line = &trees[y];
+            if line[x % line.len()] {
+                trees_hit += 1
+            }
+
+            x += slope_x;
+            y += slope_y;
+        }
+
+        trees_hit
+    };
+
+    println!("{}", hits(3, 1));
+    println!(
+        "{}",
+        hits(1, 1) * hits(3, 1) * hits(5, 1) * hits(7, 1) * hits(1, 2)
+    );
+}
+
 fn main() {
     one();
     two();
+    three();
 }
